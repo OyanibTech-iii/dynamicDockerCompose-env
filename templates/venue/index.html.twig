@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Venue index{% endblock %}
+
+{% block body %}
+    <h1>Venue index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Capacity</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for venue in venues %}
+            <tr>
+                <td>{{ venue.id }}</td>
+                <td>{{ venue.name }}</td>
+                <td>{{ venue.address }}</td>
+                <td>{{ venue.capacity }}</td>
+                <td>
+                    <a href="{{ path('app_venue_show', {'id': venue.id}) }}">show</a>
+                    <a href="{{ path('app_venue_edit', {'id': venue.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_venue_new') }}">Create new</a>
+{% endblock %}
