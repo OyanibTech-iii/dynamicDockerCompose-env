@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
 body {
-    background-color: skyblue;
+    display: flex;
+    justify-items: start;
+    align-items: center;
+    font-family: "Quicksand", sans-serif;
+    color: rgb(11, 11, 79);
+    background-color:white;
 }
