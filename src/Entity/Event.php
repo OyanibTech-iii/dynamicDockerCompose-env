@@ -5,10 +5,32 @@ namespace App\Entity;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Serializer\Attribute\Groups;
+
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Delete()
+    ],
+    normalizationContext: [
+        'groups' => ['event:read']
+    ],
+    denormalizationContext: [
+        'groups' => ['event:write']
+    ]
+)]
 
 
-#[ApiResource]
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
@@ -16,30 +38,39 @@ class Event
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\Column]
     private ?\DateTimeImmutable $startDate = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\Column]
     private ?\DateTimeImmutable $endDate = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\Column]
     private ?int $maxAttendees = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
+    #[Groups(['event:read', 'event:write'])]
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
+
     private ?Venue $venue = null;
 
     public function getId(): ?int
